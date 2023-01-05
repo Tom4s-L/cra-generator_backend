@@ -1,4 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { CraDay } from 'src/api/cra-days/entities/cra-day.entity';
+import {
+  Column, Entity, OneToMany, PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Cra {
@@ -28,4 +31,7 @@ export class Cra {
 
   @Column({ type: 'varchar' })
     clientVisa: string;
+
+  @OneToMany(() => CraDay, (craDay) => craDay.cra)
+    craDays: CraDay[];
 }

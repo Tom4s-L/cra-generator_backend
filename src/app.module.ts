@@ -3,10 +3,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CraModule } from './api/cra/cra.module';
 import { CraDaysModule } from './api/cra-days/cra-days.module';
-import { CraModule } from './api/cra/cra.module';
+import { ConfigModule } from './config/config.module';
+import { PostgresDatabaseModule } from './postgres-database/postgres-database.module';
 
 @Module({
-  imports: [CraModule, CraDaysModule],
+  imports: [
+    ConfigModule,
+    PostgresDatabaseModule,
+    CraModule,
+    CraDaysModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -4,6 +4,6 @@ import { CraDaysController } from './cra-days.controller';
 
 @Module({
   controllers: [CraDaysController],
-  providers: [CraDaysService]
+  providers: [CraDaysService],
 })
 export class CraDaysModule {}
