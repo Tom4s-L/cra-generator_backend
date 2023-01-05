@@ -1,5 +1,5 @@
 import {
-  Body, Controller, Logger, Post,
+  Body, Controller, Get, Logger, ParseArrayPipe, Post, Query,
 } from '@nestjs/common';
 import { SuccessResponse } from 'src/commons/response/success-response';
 import { CraService } from './cra.service';
@@ -11,6 +11,12 @@ export class CraController {
   private logger = new Logger(CraController.name);
 
   constructor(private readonly craService: CraService) {}
+
+  @Get()
+  async findAll(@Query('include', new ParseArrayPipe({ optional: true })) relations?: string[]) {
+    const cras = await this.craService.findAll({ relations });
+    return new SuccessResponse(cras);
+  }
 
   @Post('create')
   async create(@Body() createCraDto: CreateCraDto) {

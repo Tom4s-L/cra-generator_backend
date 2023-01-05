@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CraDay } from '../cra-days/entities/cra-day.entity';
 import { CreateCraDto } from './dto/create-cra.dto';
 import { Cra } from './entities/cra.entity';
 import { CraAlreadyExistException } from './exceptions/already-exist/already-exists.exception';
+
+type FindAllOption = {
+  relations: string[]
+};
 
 export enum PresenceEnum {
   PRESENT = 'PRESENT',
@@ -15,17 +20,28 @@ export class CraService {
   constructor(
     @InjectRepository(Cra)
     private craRepository: Repository<Cra>,
+    @InjectRepository(CraDay)
+    private craDayRepository: Repository<CraDay>,
   ) {}
 
+  async findAll(findAllOption: FindAllOption): Promise<Cra[]> {
+    const relations = (findAllOption.relations || []);
+    console.log(relations);
+
+    const allCras = await this.craRepository.find({ relations });
+
+    return allCras;
+  }
+
   async createCra(createCraDto: CreateCraDto): Promise<Cra> {
-    const existingCra = await this.craRepository.findOne({
+    const existingCra: Cra = await this.craRepository.findOne({
       where: {
         beginingDate: createCraDto.beginingDate,
         endDate: createCraDto.endDate,
       },
     });
 
-    const craId = existingCra.id;
+    const craId: string = existingCra?.id;
 
     if (existingCra) {
       throw new CraAlreadyExistException({
@@ -40,7 +56,13 @@ export class CraService {
     };
 
     const newCra = this.craRepository.create(craToStore);
-    return this.craRepository.save(newCra);
+    const savedCra = await this.craRepository.save(newCra);
+
+    await this.craDayRepository.save(
+      createCraDto.craDays.map((craDay) => ({ ...craDay, cra: savedCra })),
+    );
+
+    return savedCra;
   }
 
   calculateHalfDaysPresence(createCraDto: CreateCraDto): number {
