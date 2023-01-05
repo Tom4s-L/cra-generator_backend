@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCraDto } from './dto/create-cra.dto';
 import { Cra } from './entities/cra.entity';
+import { CraAlreadyExistException } from './exceptions/already-exist/already-exists.exception';
 
 export enum PresenceEnum {
   PRESENT = 'PRESENT',
@@ -24,10 +25,12 @@ export class CraService {
       },
     });
 
-    if (existingCra) {
-      // TODO: créer erreur dediée
+    const craId = existingCra.id;
 
-      throw new Error('Already exist');
+    if (existingCra) {
+      throw new CraAlreadyExistException({
+        craId,
+      });
     }
 
     const craToStore = {

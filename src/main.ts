@@ -1,7 +1,7 @@
 import { Logger, ValidationError, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { BadRequestException } from './commons/exceptions/BadRequestException';
+import { BadRequestException } from './commons/exceptions/HttpExceptions/BadRequestException';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
