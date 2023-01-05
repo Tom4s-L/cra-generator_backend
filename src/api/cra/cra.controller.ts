@@ -10,7 +10,7 @@ export class CraController {
   @Post('create')
   async create(@Body() createCraDto: CreateCraDto) {
     try {
-      const cra = this.craService.createCra(createCraDto);
+      const cra = await this.craService.createCra(createCraDto);
       return new SuccessResponse(cra);
     } catch (error) {
       console.log(error);

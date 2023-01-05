@@ -24,5 +24,5 @@ export class CreateCraDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateCraDayDto)
-    items: CreateCraDayDto[];
+    craDays: CreateCraDayDto[];
 }

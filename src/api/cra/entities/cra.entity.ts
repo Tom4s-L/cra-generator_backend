@@ -21,10 +21,10 @@ export class Cra {
     endDate: string;
 
   @Column({ type: 'varchar' })
-    presenceHalfDays: string;
+    presenceHalfDays: number;
 
   @Column({ type: 'varchar' })
-    awayHalfDays: string;
+    absenceHalfDays: number;
 
   @Column({ type: 'varchar' })
     providerVisa: string;

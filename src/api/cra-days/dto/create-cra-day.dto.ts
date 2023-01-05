@@ -11,13 +11,13 @@ export class CreateCraDayDto {
     date: string;
 
   @IsEnum(PresenceEnum)
-    moning: PresenceEnum;
+    morning: PresenceEnum;
 
   @IsEnum(PresenceEnum)
     afternoon: PresenceEnum;
 
   @IsBoolean()
-    workmode: boolean;
+    remote: boolean;
 
   @IsOptional()
   @IsString()

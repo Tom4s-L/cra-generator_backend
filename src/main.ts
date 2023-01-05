@@ -13,7 +13,9 @@ async function bootstrap() {
     exceptionFactory: (validationErrors: ValidationError[] = []) => new BadRequestException('VALIDATION_ERROR', 'invalid request', validationErrors),
   }));
 
-  await app.listen(3000);
-  Logger.log('Starting server on port: 3000');
+  const port = process.env.PORT || 3000;
+
+  await app.listen(port);
+  Logger.log(`Starting server on port: ${port} `);
 }
 bootstrap();

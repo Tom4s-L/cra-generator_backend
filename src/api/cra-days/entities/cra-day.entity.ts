@@ -6,7 +6,6 @@ import {
 export enum PresenceEnum {
   PRESENT = 'PRESENT',
   ABSENT = 'ABSENT',
-  TEST = 'TEST',
 }
 
 @Entity()
@@ -27,7 +26,7 @@ export class CraDay {
     afternoon: string;
 
   @Column({ type: 'boolean' })
-    workMode: boolean;
+    remote: boolean;
 
   @Column({ type: 'varchar', nullable: true })
     comment: string;
