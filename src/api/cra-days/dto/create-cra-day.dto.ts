@@ -1,7 +1,6 @@
 import {
-  IsBoolean, IsEnum, IsOptional, IsString,
+  IsBoolean, IsOptional, IsString,
 } from 'class-validator';
-import { PresenceEnum } from '../entities/cra-day.entity';
 
 export class CreateCraDayDto {
   @IsString()
@@ -10,11 +9,11 @@ export class CreateCraDayDto {
   @IsString()
     date: string;
 
-  @IsEnum(PresenceEnum)
-    morning: PresenceEnum;
+  @IsBoolean()
+    morning: boolean;
 
-  @IsEnum(PresenceEnum)
-    afternoon: PresenceEnum;
+  @IsBoolean()
+    afternoon: boolean;
 
   @IsBoolean()
     remote: boolean;

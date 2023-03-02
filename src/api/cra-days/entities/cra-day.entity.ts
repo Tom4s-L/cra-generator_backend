@@ -3,11 +3,6 @@ import {
   Column, Entity, ManyToOne, PrimaryGeneratedColumn,
 } from 'typeorm';
 
-export enum PresenceEnum {
-  PRESENT = 'PRESENT',
-  ABSENT = 'ABSENT',
-}
-
 @Entity()
 export class CraDay {
   @PrimaryGeneratedColumn('uuid')
@@ -19,11 +14,11 @@ export class CraDay {
   @Column({ type: 'varchar' })
     date: string;
 
-  @Column({ type: 'enum', enum: PresenceEnum })
-    morning: string;
+  @Column({ type: 'boolean' })
+    morning: boolean;
 
-  @Column({ type: 'enum', enum: PresenceEnum })
-    afternoon: string;
+  @Column({ type: 'boolean' })
+    afternoon: boolean;
 
   @Column({ type: 'boolean' })
     remote: boolean;

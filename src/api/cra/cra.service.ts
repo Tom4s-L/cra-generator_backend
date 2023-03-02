@@ -26,8 +26,6 @@ export class CraService {
 
   async findAll(findAllOption: FindAllOption): Promise<Cra[]> {
     const relations = (findAllOption.relations || []);
-    console.log(relations);
-
     const allCras = await this.craRepository.find({ relations });
 
     return allCras;
@@ -67,11 +65,11 @@ export class CraService {
 
   calculateHalfDaysPresence(createCraDto: CreateCraDto): number {
     const presentMoringsNumber: number = createCraDto.craDays.filter(
-      (day) => day.morning === PresenceEnum.PRESENT,
+      (day) => day.morning === true,
     ).length;
 
     const presentAfternoonsNumber: number = createCraDto.craDays.filter(
-      (day) => day.afternoon === PresenceEnum.PRESENT,
+      (day) => day.afternoon === true,
     ).length;
 
     return presentMoringsNumber + presentAfternoonsNumber;
@@ -79,11 +77,11 @@ export class CraService {
 
   calculateHalfDaysAbsence(createCraDto: CreateCraDto): number {
     const absentMoringsNumber: number = createCraDto.craDays.filter(
-      (day) => day.morning === PresenceEnum.ABSENT,
+      (day) => day.morning === false,
     ).length;
 
     const absentAfternoonsNumber: number = createCraDto.craDays.filter(
-      (day) => day.afternoon === PresenceEnum.ABSENT,
+      (day) => day.afternoon === false,
     ).length;
 
     return absentMoringsNumber + absentAfternoonsNumber;
